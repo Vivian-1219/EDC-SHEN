@@ -4,7 +4,7 @@
 #define AIN1        DL_GPIO_PIN_8
 #define AIN2        DL_GPIO_PIN_26
 #define BIN1        DL_GPIO_PIN_9
-#define BIN2        DL_GPIO_PIN_27
+#define BIN2        DL_GPIO_PIN_19
 
 void motor_init(void)
 {
