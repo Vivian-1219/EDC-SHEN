@@ -2,13 +2,13 @@
 #include "ti_msp_dl_config.h"
 
 #define IR1     DL_GPIO_PIN_4
-#define IR2     DL_GPIO_PIN_5
-#define IR3     DL_GPIO_PIN_6
-#define IR4     DL_GPIO_PIN_7
-#define IR5     DL_GPIO_PIN_8
-#define IR6     DL_GPIO_PIN_9
-#define IR7     DL_GPIO_PIN_10
-#define IR8     DL_GPIO_PIN_11
+#define IR2     DL_GPIO_PIN_6
+#define IR3     DL_GPIO_PIN_7
+#define IR4     DL_GPIO_PIN_14
+#define IR5     DL_GPIO_PIN_1
+#define IR6     DL_GPIO_PIN_2
+#define IR7     DL_GPIO_PIN_3
+#define IR8     DL_GPIO_PIN_10
 
 static int read_pin(uint32_t pin)
 {
