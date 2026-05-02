@@ -1,10 +1,10 @@
 #include "motor.h"
 #include "ti_msp_dl_config.h"
 
-#define AIN1        DL_GPIO_PIN_0
-#define AIN2        DL_GPIO_PIN_1
-#define BIN1        DL_GPIO_PIN_2
-#define BIN2        DL_GPIO_PIN_3
+#define AIN1        DL_GPIO_PIN_8
+#define AIN2        DL_GPIO_PIN_26
+#define BIN1        DL_GPIO_PIN_9
+#define BIN2        DL_GPIO_PIN_27
 
 void motor_init(void)
 {
