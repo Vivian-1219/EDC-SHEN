@@ -1,60 +1,41 @@
-【模块职责】 
-负责小车底盘运动、电机驱动、黑线循迹、速度闭环与路径执行。
+## Example Summary
 
-【硬件配置】
-电机驱动：TB6612
-循迹传感器：8路红外循迹阵列
-控制芯片：TI MSPM0G3507
-测速：电机编码器（速度闭环）
+Empty project using DriverLib.
+This example shows a basic empty project using DriverLib with just main file
+and SysConfig initialization.
 
-【核心功能】
-电机驱动与速度闭环控制
-黑线循迹与偏差计算
-循迹PID控制（直线、弯道、路口稳定）
-原地旋转找线逻辑
-丢线保护与自动回线
-路口/节点识别
-终点精准停车
-底盘锁死/解锁安全机制
+## Peripherals & Pin Assignments
 
-【使用引脚】 
-电机驱动：PA0, PA1, PA2, PA3（4个，输出）
-循迹传感器：PA4-PA11（8个，输入）
-循迹小车引脚分配说明（适配 MSPM0G3507）
-## 引脚分配说明
+| Peripheral | Pin | Function |
+| --- | --- | --- |
+| SYSCTL |  |  |
+| DEBUGSS | PA20 | Debug Clock |
+| DEBUGSS | PA19 | Debug Data In Out |
 
-### 1. 电机驱动模块（输出）
-用于控制左右轮电机的正反转，适配 TB6612/L298N 驱动芯片。
+## BoosterPacks, Board Resources & Jumper Settings
 
-| 定义名 | 实际引脚 | 功能说明         | 典型接线目标 |
-|--------|----------|------------------|--------------|
-| `AIN1` | `GPIOA_0`| 左轮方向控制信号1 | 驱动板 AIN1 脚 |
-| `AIN2` | `GPIOA_1`| 左轮方向控制信号2 | 驱动板 AIN2 脚 |
-| `BIN1` | `GPIOA_2`| 右轮方向控制信号1 | 驱动板 BIN1 脚 |
-| `BIN2` | `GPIOA_3`| 右轮方向控制信号2 | 驱动板 BIN2 脚 |
+Visit [LP_MSPM0G3507](https://www.ti.com/tool/LP-MSPM0G3507) for LaunchPad information, including user guide and hardware files.
 
-**工作逻辑（以左轮为例）**
-- 正转：`AIN1 = 高电平, AIN2 = 低电平`
-- 反转：`AIN1 = 低电平, AIN2 = 高电平`
-- 刹车：`AIN1 = 低电平, AIN2 = 低电平`
+| Pin | Peripheral | Function | LaunchPad Pin | LaunchPad Settings |
+| --- | --- | --- | --- | --- |
+| PA20 | DEBUGSS | SWCLK | N/A | <ul><li>PA20 is used by SWD during debugging<br><ul><li>`J101 15:16 ON` Connect to XDS-110 SWCLK while debugging<br><li>`J101 15:16 OFF` Disconnect from XDS-110 SWCLK if using pin in application</ul></ul> |
+| PA19 | DEBUGSS | SWDIO | N/A | <ul><li>PA19 is used by SWD during debugging<br><ul><li>`J101 13:14 ON` Connect to XDS-110 SWDIO while debugging<br><li>`J101 13:14 OFF` Disconnect from XDS-110 SWDIO if using pin in application</ul></ul> |
 
----
+### Device Migration Recommendations
+This project was developed for a superset device included in the LP_MSPM0G3507 LaunchPad. Please
+visit the [CCS User's Guide](https://software-dl.ti.com/msp430/esd/MSPM0-SDK/latest/docs/english/tools/ccs_ide_guide/doc_guide/doc_guide-srcs/ccs_ide_guide.html#sysconfig-project-migration)
+for information about migrating to other MSPM0 devices.
 
-### 2. 8路循迹传感器（输入）
-用于读取红外循迹模块信号，实现黑线识别与路径修正。
+### Low-Power Recommendations
+TI recommends to terminate unused pins by setting the corresponding functions to
+GPIO and configure the pins to output low or input with internal
+pullup/pulldown resistor.
 
-| 定义名 | 实际引脚 | 位置说明       | 功能说明 |
-|--------|----------|----------------|----------|
-| `IR1`  | `GPIOA_4`| 最左侧传感器   | 检测赛道左边缘，防止冲出赛道 |
-| `IR2`  | `GPIOA_5`| 左中侧传感器   | 辅助判断左偏趋势，提供微调信号 |
-| `IR3`  | `GPIOA_6`| 左内侧传感器   | 近距离检测左偏，配合 PID 快速修正 |
-| `IR4`  | `GPIOA_7`| 中左传感器     | 检测中心偏左黑线，作为主循迹参考 |
-| `IR5`  | `GPIOA_8`| 中右传感器     | 检测中心偏右黑线，作为主循迹参考 |
-| `IR6`  | `GPIOA_9`| 右内侧传感器   | 近距离检测右偏，配合 PID 快速修正 |
-| `IR7`  | `GPIOA_10`| 右中侧传感器  | 辅助判断右偏趋势，提供微调信号 |
-| `IR8`  | `GPIOA_11`| 最右侧传感器 | 检测赛道右边缘，防止冲出赛道 |
+SysConfig allows developers to easily configure unused pins by selecting **Board**→**Configure Unused Pins**.
 
-**工作逻辑**
-- 遇到黑线：输出低电平 `0`
-- 遇到白色区域：输出高电平 `1`
-- 代码通过 `track_get_error()` 计算误差值，为 PID 控制提供方向修正信号。
+For more information about jumper configuration to achieve low-power using the
+MSPM0 LaunchPad, please visit the [LP-MSPM0G3507 User's Guide](https://www.ti.com/lit/slau873).
+
+## Example Usage
+
+Compile, load and run the example.
