@@ -1,54 +1,56 @@
 #include "motor.h"
 #include "ti_msp_dl_config.h"
 
-#define AIN1        DL_GPIO_PIN_8
-#define AIN2        DL_GPIO_PIN_26
-#define BIN1        DL_GPIO_PIN_9
-#define BIN2        DL_GPIO_PIN_19
-
 void motor_init(void)
 {
-    // 初始化只传引脚
-    DL_GPIO_initDigitalOutput(AIN1);
-    DL_GPIO_initDigitalOutput(AIN2);
-    DL_GPIO_initDigitalOutput(BIN1);
-    DL_GPIO_initDigitalOutput(BIN2);
+    DL_GPIO_initDigitalOutput(STBY_PIN);
+    DL_GPIO_setPins(STBY_PORT, STBY_PIN);
+
+    DL_GPIO_initDigitalOutput(AIN1_PIN);
+    DL_GPIO_initDigitalOutput(AIN2_PIN);
+    DL_GPIO_initDigitalOutput(BIN1_PIN);
+    DL_GPIO_initDigitalOutput(BIN2_PIN);
+
+    DL_GPIO_initDigitalOutput(PWMA_PIN);
+    DL_GPIO_initDigitalOutput(PWMB_PIN);
 
     motor_stop();
 }
 
 void motor_set_speed(int left, int right)
 {
+    // 左电机方向控制
     if (left > 0)
     {
-        DL_GPIO_setPins(GPIOA, AIN1);
-        DL_GPIO_clearPins(GPIOA, AIN2);
+        DL_GPIO_setPins(AIN1_PORT, AIN1_PIN);
+        DL_GPIO_clearPins(AIN2_PORT, AIN2_PIN);
     }
     else if (left < 0)
     {
-        DL_GPIO_clearPins(GPIOA, AIN1);
-        DL_GPIO_setPins(GPIOA, AIN2);
+        DL_GPIO_clearPins(AIN1_PORT, AIN1_PIN);
+        DL_GPIO_setPins(AIN2_PORT, AIN2_PIN);
     }
     else
     {
-        DL_GPIO_clearPins(GPIOA, AIN1);
-        DL_GPIO_clearPins(GPIOA, AIN2);
+        DL_GPIO_clearPins(AIN1_PORT, AIN1_PIN);
+        DL_GPIO_clearPins(AIN2_PORT, AIN2_PIN);
     }
 
+    // 右电机方向控制
     if (right > 0)
     {
-        DL_GPIO_setPins(GPIOA, BIN1);
-        DL_GPIO_clearPins(GPIOA, BIN2);
+        DL_GPIO_setPins(BIN1_PORT, BIN1_PIN);
+        DL_GPIO_clearPins(BIN2_PORT, BIN2_PIN);
     }
     else if (right < 0)
     {
-        DL_GPIO_clearPins(GPIOA, BIN1);
-        DL_GPIO_setPins(GPIOA, BIN2);
+        DL_GPIO_clearPins(BIN1_PORT, BIN1_PIN);
+        DL_GPIO_setPins(BIN2_PORT, BIN2_PIN);
     }
     else
     {
-        DL_GPIO_clearPins(GPIOA, BIN1);
-        DL_GPIO_clearPins(GPIOA, BIN2);
+        DL_GPIO_clearPins(BIN1_PORT, BIN1_PIN);
+        DL_GPIO_clearPins(BIN2_PORT, BIN2_PIN);
     }
 }
 
@@ -64,5 +66,5 @@ void motor_lock(void)
 
 void motor_unlock(void)
 {
-
+    // 空函数 满足接口声明 无报错
 }
