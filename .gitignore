@@ -1,0 +1,9 @@
+Debug/
+README.html
+
+*.o
+*.d
+*.out
+*.map
+*.xml
+

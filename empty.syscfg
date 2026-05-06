@@ -1,0 +1,116 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ */
+//@cliArgs --device "MSPM0G350X" --package "LQFP-64(PM)" --part "Default"
+//@v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)"
+// @cliArgs --board /ti/boards/LP_MSPM0G3507 --rtos nortos
+
+/**
+ * Import the modules used in this configuration.
+ */
+const GPIO   = scripting.addModule("/ti/driverlib/GPIO", {}, false);
+const GPIO1  = GPIO.addInstance();
+const GPIO2  = GPIO.addInstance();
+const GPIO3  = GPIO.addInstance();
+const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+
+GPIO1.$name = "GPIO_MOTOR";
+GPIO1.associatedPins.create(13);
+GPIO1.associatedPins[0].$name       = "AIN1";
+GPIO1.associatedPins[0].pin.$assign = "PA8";
+GPIO1.associatedPins[1].$name       = "AIN2";
+GPIO1.associatedPins[1].pin.$assign = "PA26";
+GPIO1.associatedPins[2].$name       = "BIN1";
+GPIO1.associatedPins[2].pin.$assign = "PB9";
+GPIO1.associatedPins[3].$name       = "BIN2";
+GPIO1.associatedPins[3].pin.$assign = "PB19";
+GPIO1.associatedPins[4].$name       = "STBY";
+GPIO1.associatedPins[4].pin.$assign = "PA15";
+GPIO1.associatedPins[5].$name       = "PWMA";
+GPIO1.associatedPins[5].pin.$assign = "PA28";
+GPIO1.associatedPins[6].$name       = "PWMB";
+GPIO1.associatedPins[6].pin.$assign = "PB13";
+GPIO1.associatedPins[7].$name       = "CIN1";
+GPIO1.associatedPins[7].pin.$assign = "PB17";
+GPIO1.associatedPins[8].$name       = "CIN2";
+GPIO1.associatedPins[8].pin.$assign = "PB18";
+GPIO1.associatedPins[9].$name       = "DIN1";
+GPIO1.associatedPins[9].pin.$assign = "PB24";
+GPIO1.associatedPins[10].$name       = "DIN2";
+GPIO1.associatedPins[10].pin.$assign = "PA24";
+GPIO1.associatedPins[11].$name       = "PWMC";
+GPIO1.associatedPins[11].pin.$assign = "PB4";
+GPIO1.associatedPins[12].$name       = "PWMD";
+GPIO1.associatedPins[12].pin.$assign = "PB20";
+
+GPIO2.$name = "GPIO_TRACK";
+GPIO2.associatedPins.create(8);
+GPIO2.associatedPins[0].$name       = "IR1";
+GPIO2.associatedPins[0].direction   = "INPUT";
+GPIO2.associatedPins[0].pin.$assign = "PA4";
+GPIO2.associatedPins[1].$name       = "IR2";
+GPIO2.associatedPins[1].direction   = "INPUT";
+GPIO2.associatedPins[1].pin.$assign = "PA6";
+GPIO2.associatedPins[2].$name       = "IR3";
+GPIO2.associatedPins[2].direction   = "INPUT";
+GPIO2.associatedPins[2].pin.$assign = "PA7";
+GPIO2.associatedPins[3].$name       = "IR4";
+GPIO2.associatedPins[3].direction   = "INPUT";
+GPIO2.associatedPins[3].pin.$assign = "PA14";
+GPIO2.associatedPins[4].$name       = "IR5";
+GPIO2.associatedPins[4].direction   = "INPUT";
+GPIO2.associatedPins[4].pin.$assign = "PA1";
+GPIO2.associatedPins[5].$name       = "IR6";
+GPIO2.associatedPins[5].direction   = "INPUT";
+GPIO2.associatedPins[5].pin.$assign = "PA2";
+GPIO2.associatedPins[6].$name       = "IR7";
+GPIO2.associatedPins[6].direction   = "INPUT";
+GPIO2.associatedPins[6].pin.$assign = "PA3";
+GPIO2.associatedPins[7].$name       = "IR8";
+GPIO2.associatedPins[7].direction   = "INPUT";
+GPIO2.associatedPins[7].pin.$assign = "PA0";
+
+GPIO3.$name = "GPIO_ENCODER";
+GPIO3.associatedPins.create(8);
+GPIO3.associatedPins[0].$name       = "E1A";
+GPIO3.associatedPins[0].direction   = "INPUT";
+GPIO3.associatedPins[0].interruptEn = true;
+GPIO3.associatedPins[0].polarity    = "RISE_FALL";
+GPIO3.associatedPins[0].pin.$assign = "PA5";
+GPIO3.associatedPins[1].$name       = "E1B";
+GPIO3.associatedPins[1].direction   = "INPUT";
+GPIO3.associatedPins[1].pin.$assign = "PA12";
+GPIO3.associatedPins[2].$name       = "E2A";
+GPIO3.associatedPins[2].direction   = "INPUT";
+GPIO3.associatedPins[2].interruptEn = true;
+GPIO3.associatedPins[2].polarity    = "RISE_FALL";
+GPIO3.associatedPins[2].pin.$assign = "PA13";
+GPIO3.associatedPins[3].$name       = "E2B";
+GPIO3.associatedPins[3].direction   = "INPUT";
+GPIO3.associatedPins[3].pin.$assign = "PB16";
+GPIO3.associatedPins[4].$name       = "E3A";
+GPIO3.associatedPins[4].direction   = "INPUT";
+GPIO3.associatedPins[4].interruptEn = true;
+GPIO3.associatedPins[4].polarity    = "RISE_FALL";
+GPIO3.associatedPins[4].pin.$assign = "PA9";
+GPIO3.associatedPins[5].$name       = "E3B";
+GPIO3.associatedPins[5].direction   = "INPUT";
+GPIO3.associatedPins[5].pin.$assign = "PA16";
+GPIO3.associatedPins[6].$name       = "E4A";
+GPIO3.associatedPins[6].direction   = "INPUT";
+GPIO3.associatedPins[6].interruptEn = true;
+GPIO3.associatedPins[6].polarity    = "RISE_FALL";
+GPIO3.associatedPins[6].pin.$assign = "PA17";
+GPIO3.associatedPins[7].$name       = "E4B";
+GPIO3.associatedPins[7].direction   = "INPUT";
+GPIO3.associatedPins[7].pin.$assign = "PA18";
+
+const Board = scripting.addModule("/ti/driverlib/Board", {}, false);
+
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.clockTreeEn = true;
